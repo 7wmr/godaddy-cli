@@ -33,8 +33,15 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(config.Load)
+	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().BoolVarP(&debugFlag, "debug", "D", false, "Enable debug logging")
 	rootCmd.PersistentFlags().BoolVarP(&versionFlag, "version", "v", false, "Display version.")
+}
+
+func initConfig() {
+	if err := config.Load(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }
