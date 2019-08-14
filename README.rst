@@ -4,7 +4,7 @@ godaddy-cli
 Clone Repo
 --------------------------
 
-`.. code:: bash
+.. code:: bash
 
   git clone git@github.com:7wmr/godaddy-cli.git ~/go/src/godaddy -b develop
 
