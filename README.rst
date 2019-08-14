@@ -1,4 +1,4 @@
-godaddy-cli
+GoDaddy Command Line Tool
 ==========================
 
 Develop
