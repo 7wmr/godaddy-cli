@@ -36,7 +36,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().BoolVarP(&debugFlag, "debug", "D", false, "Enable debug logging")
-	rootCmd.PersistentFlags().BoolVarP(&versionFlag, "version", "v", false, "Display version.")
+	rootCmd.PersistentFlags().BoolVarP(&versionFlag, "version", "V", false, "Display version.")
 }
 
 func initConfig() {
