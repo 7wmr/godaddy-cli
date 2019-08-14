@@ -6,7 +6,7 @@ Clone Repo
 
 .. code:: bash
 
-  git clone git@github.com:7wmr/godaddy-cli.git ~/go/src/godaddy -b develop
+  git clone git@github.com:7wmr/godaddy-cli.git ~/go/src/github.com/7wmr/godaddy-cli -b develop
 
 
 Link Repo
@@ -14,7 +14,7 @@ Link Repo
 
 .. code:: bash
 
-  ln -s ~/go/src/godaddy ~/repos/godaddy-cli
+  ln -s ~/go/src/github.com/7wmr/godaddy-cli ~/repos/godaddy-cli
 
 
 Link Config
