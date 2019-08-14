@@ -1,6 +1,6 @@
 package dns
 
-// Records retruned from GoDaddy.
+// Records returned from GoDaddy.
 type Records struct {
 	Records []Record
 }
