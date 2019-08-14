@@ -21,6 +21,9 @@ Deploy
 
   brew tap 7wmr/homebrew-tools
 
+
+.. code:: bash
+
   brew install godaddy-cli
 
 
