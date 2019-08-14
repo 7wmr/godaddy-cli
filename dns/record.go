@@ -1,15 +1,44 @@
 package dns
 
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/7wmr/godaddy-cli/conf"
+	"io/ioutil"
+	"net/http"
+)
+
 // Records returned from GoDaddy.
 type Records struct {
 	Records []Record
+	Domain  string
+	Config  conf.Config
 }
 
-// SetDomains update all records with domain.
-func (r *Records) SetDomains(domain string) {
-	for index := range r.Records {
-		r.Records[index].Domain = domain
+// Get selected records.
+func (r *Records) Get(name string, rtype string) error {
+	url := fmt.Sprintf("%s/v1/domains/%s/records/%s/%s", r.Config.GetAPI(), r.Domain, rtype, name)
+	client := &http.Client{}
+
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Set(r.Config.GetAuth())
+
+	res, err := client.Do(req)
+	if err != nil {
+		return err
 	}
+	if res.StatusCode != 200 {
+		return errors.New(string(res.StatusCode))
+	}
+
+	body, _ := ioutil.ReadAll(res.Body)
+	err = json.Unmarshal(body, &r.Records)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Record returned from GoDaddy.
