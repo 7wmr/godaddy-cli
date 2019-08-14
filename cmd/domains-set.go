@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"github.com/7wmr/godaddy-cli/conf"
-
 	"github.com/spf13/cobra"
 )
 
