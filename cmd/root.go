@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ipsoft-tools/1desk-cli/conf"
-
-	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var godaddyKey string
