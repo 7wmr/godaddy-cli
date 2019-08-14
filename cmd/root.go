@@ -10,12 +10,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cfgFile string
-var cfgPath string
+var godaddyKey string
+var godaddySecret string
+
 var debugFlag bool
 var versionFlag bool
-
-var config conf.Config
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -43,7 +42,8 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&versionFlag, "version", "v", false, "Display version.")
 }
 
-// initConfig loads configuration from file.
+// initConfig loads settings from environment variables.
 func initConfig() {
-	// TBD
+	godaddyKey = viper.GetString("GODADDY_KEY")
+	godaddySecret = viper.GetString("GODADDY_SECRET")
 }
