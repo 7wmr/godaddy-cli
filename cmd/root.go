@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/7wmr/godaddy-cli/conf"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
-var godaddyKey string
-var godaddySecret string
+var config conf.Config
 
 var debugFlag bool
 var versionFlag bool
@@ -34,14 +33,8 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
+	cobra.OnInitialize(config.Load)
 
 	rootCmd.PersistentFlags().BoolVarP(&debugFlag, "debug", "D", false, "Enable debug logging")
 	rootCmd.PersistentFlags().BoolVarP(&versionFlag, "version", "v", false, "Display version.")
-}
-
-// initConfig loads settings from environment variables.
-func initConfig() {
-	godaddyKey = viper.GetString("GODADDY_KEY")
-	godaddySecret = viper.GetString("GODADDY_SECRET")
 }
