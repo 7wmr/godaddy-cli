@@ -1,12 +1,10 @@
 package cmd
 
 import (
-	//	"encoding/json"
+	"encoding/json"
 	"fmt"
 	"github.com/7wmr/godaddy-cli/dns"
 	"github.com/spf13/cobra"
-	//	"io/ioutil"
-	//	"net/http"
 )
 
 var recordDomain string
@@ -25,7 +23,8 @@ var setRecordCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(records)
+		data, _ := json.MarshalIndent(records, "", "\t")
+		fmt.Println(string(data))
 	},
 }
 

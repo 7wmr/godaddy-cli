@@ -9,11 +9,24 @@ import (
 	"net/http"
 )
 
+// Record returned from GoDaddy.
+type Record struct {
+	Name  string `json:"name"`
+	TTL   int    `json:"ttl"`
+	Value string `json:"data"`
+	Type  string `json:"type"`
+}
+
+// SetValue update the record value.
+func (r *Record) SetValue(value string) {
+	r.Value = value
+}
+
 // Records returned from GoDaddy.
 type Records struct {
-	Records []Record
-	Domain  string
-	Config  conf.Config
+	Records []Record    `json:"records"`
+	Domain  string      `json:"domain"`
+	Config  conf.Config `json:"-"`
 }
 
 // Get selected records.
@@ -39,23 +52,4 @@ func (r *Records) Get(name string, rtype string) error {
 	}
 
 	return nil
-}
-
-// Record returned from GoDaddy.
-type Record struct {
-	Name   string `json:"name"`
-	TTL    int    `json:"ttl"`
-	Domain string `json:"-"`
-	Value  string `json:"data"`
-	Type   string `json:"type"`
-}
-
-// SetValue update the record value.
-func (r *Record) SetValue(value string) {
-	r.Value = value
-}
-
-// SetDomain update the domain value.
-func (r *Record) SetDomain(domain string) {
-	r.Domain = domain
 }
