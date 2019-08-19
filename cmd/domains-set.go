@@ -19,12 +19,14 @@ var setRecordCmd = &cobra.Command{
 	Long:  `TBC`,
 	Run: func(cmd *cobra.Command, args []string) {
 		records := dns.Records{Domain: recordDomain, Config: config}
-		err := records.Get(recordName, recordType)
+		err := records.GetRecords(recordName, recordType)
 		if err != nil {
 			fmt.Println(err)
 		}
 		data, _ := json.MarshalIndent(records, "", "\t")
 		fmt.Println(string(data))
+		ip, _ := dns.GetPublicAddress()
+		fmt.Println(ip.IP)
 	},
 }
 

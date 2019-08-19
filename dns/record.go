@@ -29,8 +29,8 @@ type Records struct {
 	Config  conf.Config `json:"-"`
 }
 
-// Get selected records.
-func (r *Records) Get(name string, rtype string) error {
+// GetRecords selected records.
+func (r *Records) GetRecords(name string, rtype string) error {
 	url := fmt.Sprintf("%s/v1/domains/%s/records/%s/%s", r.Config.GetAPI(), r.Domain, rtype, name)
 	client := &http.Client{}
 
@@ -52,4 +52,39 @@ func (r *Records) Get(name string, rtype string) error {
 	}
 
 	return nil
+}
+
+// PublicAddress is details about the current public IP address
+type PublicAddress struct {
+	IP       string `json:"ip"`
+	Hostname string `json:"hostname"`
+	City     string `json:"city"`
+	Region   string `json:"region"`
+	Country  string `json:"country"`
+	Location string `json:"loc"`
+	Org      string `json:"org"`
+	Postal   string `json:"postal"`
+}
+
+// GetPublicAddress get the current public IP address
+func GetPublicAddress() (PublicAddress, error) {
+	var ip PublicAddress
+	res, err := http.Get("http://ipinfo.io/json")
+	if err != nil {
+		return ip, err
+	}
+
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return ip, err
+	}
+
+	err = json.Unmarshal(body, &ip)
+	if err != nil {
+		return ip, nil
+	}
+
+	return ip, nil
+
 }
