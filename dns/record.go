@@ -54,6 +54,11 @@ func (r *Records) GetRecords(name string, rtype string) error {
 	return nil
 }
 
+// SetRecord to be updated
+func (r *Record) SetRecord(value string) error {
+	return nil
+}
+
 // PublicAddress is details about the current public IP address
 type PublicAddress struct {
 	IP       string `json:"ip"`
@@ -86,5 +91,4 @@ func GetPublicAddress() (PublicAddress, error) {
 	}
 
 	return ip, nil
-
 }
