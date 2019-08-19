@@ -55,7 +55,28 @@ func (r *Records) GetRecords(name string, rtype string) error {
 }
 
 // SetRecord to be updated
-func (r *Record) SetRecord(value string) error {
+func (r *Records) SetRecords() error {
+	url := fmt.Sprintf("%s/v1/domains/%s/records/%s/%s", r.Config.GetAPI(), r.Domain, r.Records[0].Type, r.Records[0].Name)
+	client := &http.Client{}
+
+	req, _ := http.NewRequest("POST", url, nil)
+	req.Header.Set(r.Config.GetAuth())
+	req.Header.Set("Content-Type", "application/json")
+
+	res, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	if res.StatusCode != 200 {
+		return errors.New(string(res.StatusCode))
+	}
+
+	body, _ := ioutil.ReadAll(res.Body)
+	err = json.Unmarshal(body, &r.Records)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
