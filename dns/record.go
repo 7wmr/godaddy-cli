@@ -61,7 +61,7 @@ func (r *Records) SetRecords() error {
 	client := &http.Client{}
 	fmt.Println(url) //TEST
 	data, err := json.Marshal(r.Records)
-	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(data))
+	req, _ := http.NewRequest("PUT", url, bytes.NewBuffer(data))
 	req.Header.Set(r.Config.GetAuth())
 	req.Header.Set("Content-Type", "application/json")
 	fmt.Println(string(data)) //TEST
