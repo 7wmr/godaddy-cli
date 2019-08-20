@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/7wmr/godaddy-cli/dns"
 	"github.com/spf13/cobra"
+	"os"
 )
 
 var recordDomain string
@@ -22,14 +23,20 @@ var setRecordCmd = &cobra.Command{
 		err := records.GetRecords(recordName, recordType)
 		if err != nil {
 			fmt.Println(err)
+			os.Exit(1)
 		}
 
-		ip, _ := dns.GetPublicAddress()
-		records.Records[0].SetValue(ip.IP)
+		if recordValue == "" {
+			ip, _ := dns.GetPublicAddress()
+			records.Records[0].SetValue(ip.IP)
+		}
+
 		err = records.SetRecords()
 		if err != nil {
 			fmt.Println(err)
+			os.Exit(1)
 		}
+
 		data, _ := json.MarshalIndent(records, "", "\t")
 		fmt.Println(string(data))
 	},
@@ -42,12 +49,9 @@ func init() {
 	setRecordCmd.MarkFlagRequired("domain")
 
 	setRecordCmd.Flags().StringVarP(&recordType, "type", "t", "A", "DNS Record Type [A, CNAME]")
-	setRecordCmd.MarkFlagRequired("type")
 
 	setRecordCmd.Flags().StringVarP(&recordName, "name", "n", "", "DNS Record Name")
 	setRecordCmd.MarkFlagRequired("name")
 
 	setRecordCmd.Flags().StringVarP(&recordValue, "value", "v", "", "DNS Record Value")
-	setRecordCmd.MarkFlagRequired("value")
-
 }
