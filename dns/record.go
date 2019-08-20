@@ -1,6 +1,7 @@
 package dns
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -59,7 +60,8 @@ func (r *Records) SetRecords() error {
 	url := fmt.Sprintf("%s/v1/domains/%s/records/%s/%s", r.Config.GetAPI(), r.Domain, r.Records[0].Type, r.Records[0].Name)
 	client := &http.Client{}
 
-	req, _ := http.NewRequest("POST", url, nil)
+	data, err := json.Marshal(r.Records)
+	req, _ := http.NewRequest("PUT", url, bytes.NewBuffer(data))
 	req.Header.Set(r.Config.GetAuth())
 	req.Header.Set("Content-Type", "application/json")
 
@@ -67,14 +69,9 @@ func (r *Records) SetRecords() error {
 	if err != nil {
 		return err
 	}
+
 	if res.StatusCode != 200 {
 		return errors.New(string(res.StatusCode))
-	}
-
-	body, _ := ioutil.ReadAll(res.Body)
-	err = json.Unmarshal(body, &r.Records)
-	if err != nil {
-		return err
 	}
 
 	return nil
