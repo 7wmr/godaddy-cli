@@ -59,7 +59,7 @@ func (r *Records) GetRecords(name string, rtype string) error {
 func (r *Records) SetRecords() error {
 	url := fmt.Sprintf("%s/v1/domains/%s/records/%s/%s", r.Config.GetAPI(), r.Domain, r.Records[0].Type, r.Records[0].Name)
 	client := &http.Client{}
-
+	fmt.Println(url) //TEST
 	data, err := json.Marshal(r.Records)
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	req.Header.Set(r.Config.GetAuth())
@@ -69,7 +69,7 @@ func (r *Records) SetRecords() error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(res) //TEST
+	fmt.Println(res.Status) //TEST
 	if res.StatusCode != 200 {
 		return errors.New(string(res.StatusCode))
 	}
