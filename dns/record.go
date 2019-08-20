@@ -64,11 +64,12 @@ func (r *Records) SetRecords() error {
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	req.Header.Set(r.Config.GetAuth())
 	req.Header.Set("Content-Type", "application/json")
-
+	fmt.Println(data) //TEST
 	res, err := client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Println(res) //TEST
 	if res.StatusCode != 200 {
 		return errors.New(string(res.StatusCode))
 	}
@@ -78,6 +79,7 @@ func (r *Records) SetRecords() error {
 	if err != nil {
 		return err
 	}
+	fmt.Println(body) //TEST
 
 	return nil
 }
