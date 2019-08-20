@@ -22,7 +22,7 @@ var setRecordCmd = &cobra.Command{
 		records := dns.Records{Domain: recordDomain, Config: config}
 		err := records.GetRecords(recordName, recordType)
 		if err != nil {
-			fmt.Println(err.Error())
+			fmt.Println("Error getting records ", err)
 			os.Exit(1)
 		}
 
@@ -33,7 +33,7 @@ var setRecordCmd = &cobra.Command{
 
 		err = records.SetRecords()
 		if err != nil {
-			fmt.Println(err.Error())
+			fmt.Println("Error updating records ", err)
 			os.Exit(1)
 		}
 
