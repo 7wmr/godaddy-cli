@@ -23,10 +23,15 @@ var setRecordCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println(err)
 		}
+
+		ip, _ := dns.GetPublicAddress()
+		records.Records[0].SetValue(ip.IP)
+		err = records.SetRecords()
+		if err != nil {
+			fmt.Println(err)
+		}
 		data, _ := json.MarshalIndent(records, "", "\t")
 		fmt.Println(string(data))
-		ip, _ := dns.GetPublicAddress()
-		fmt.Println(ip.IP)
 	},
 }
 
