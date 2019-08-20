@@ -6,10 +6,10 @@ import (
 	"github.com/spf13/viper"
 )
 
+// Config all of the configuration options.
 type Config struct {
 	Key    string
 	Secret string
-	API    string
 }
 
 // Load the config.

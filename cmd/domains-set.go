@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"github.com/7wmr/godaddy-cli/dns"
 	"github.com/spf13/cobra"
-	"io/ioutil"
-	"net/http"
 )
 
 var recordDomain string
@@ -20,32 +18,15 @@ var setRecordCmd = &cobra.Command{
 	Short: "Set a DNS record for a domain.",
 	Long:  `TBC`,
 	Run: func(cmd *cobra.Command, args []string) {
-		url := fmt.Sprintf("%s/v1/domains/%s/records/%s/%s", config.GetAPI(), recordDomain, recordType, recordName)
-		client := &http.Client{}
-
-		req, _ := http.NewRequest("GET", url, nil)
-		req.Header.Set(config.GetAuth())
-
-		res, err := client.Do(req)
+		records := dns.Records{Domain: recordDomain, Config: config}
+		err := records.GetRecords(recordName, recordType)
 		if err != nil {
 			fmt.Println(err)
-			return
 		}
-		if res.StatusCode != 200 {
-			fmt.Println(res.StatusCode)
-			return
-		}
-
-		body, _ := ioutil.ReadAll(res.Body)
-		var records dns.Records
-		err = json.Unmarshal(body, &records.Records)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		records.SetDomains(recordDomain)
-
-		fmt.Println(records)
+		data, _ := json.MarshalIndent(records, "", "\t")
+		fmt.Println(string(data))
+		ip, _ := dns.GetPublicAddress()
+		fmt.Println(ip.IP)
 	},
 }
 
