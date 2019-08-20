@@ -1,6 +1,10 @@
 GoDaddy Command Line Tool
 ==========================
 
+.. image:: https://circleci.com/gh/7wmr/godaddy-cli/tree/develop.svg?style=svg
+    :target: https://circleci.com/gh/7wmr/godaddy-cli/tree/develop
+
+
 Develop
 --------------------------
 
