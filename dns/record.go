@@ -55,7 +55,7 @@ func (r *Records) GetRecords(name string, rtype string) error {
 	return nil
 }
 
-// SetRecord to be updated
+// SetRecords to be updated
 func (r *Records) SetRecords() error {
 	url := fmt.Sprintf("%s/v1/domains/%s/records/%s/%s", r.Config.GetAPI(), r.Domain, r.Records[0].Type, r.Records[0].Name)
 	client := &http.Client{}

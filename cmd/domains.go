@@ -7,7 +7,7 @@ import (
 // domainCmd represents the domain command
 var domainCmd = &cobra.Command{
 	Use:   "domain",
-	Short: "Commands to administrer GoDaddy domains.",
+	Short: "Commands to administer GoDaddy domains.",
 	Long:  `TBC`,
 }
 
