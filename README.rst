@@ -43,5 +43,5 @@ Usage
 --------------------------
 
 - `godaddy <docs/godaddy.rst>`_
-- `godaddy domain <docs/godaddy_domain.rst>`
-- `godaddy domain set-record <docs/godaddy_domain_set-record.rst>`
+- `godaddy domain <docs/godaddy_domain.rst>`_
+- `godaddy domain set-record <docs/godaddy_domain_set-record.rst>`_
