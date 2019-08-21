@@ -7,14 +7,23 @@ GoDaddy Command Line Tool
 Develop
 --------------------------
 
+Clone repository.
+
 .. code:: bash
 
   git clone git@github.com:7wmr/godaddy-cli.git ~/go/src/github.com/7wmr/godaddy-cli -b develop
 
+Link repository to repo directory.
 
 .. code:: bash
 
   ln -s ~/go/src/github.com/7wmr/godaddy-cli ~/repos/godaddy-cli
+
+Generate command documentation.
+
+.. code:: bash
+
+   go run docs.go
 
 
 Deploy
@@ -30,3 +39,9 @@ Deploy
   brew install godaddy-cli
 
 
+Usage
+--------------------------
+
+- `godaddy <docs/godaddy.rst>`_
+- `godaddy domain <docs/godaddy_domain.rst>`
+- `godaddy domain set-record <docs/godaddy_domain_set-record.rst>`
